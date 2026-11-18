@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Task List</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #dbeafe, #e0e7ff);
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 450px;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        h1 {
+            text-align: center;
+            color: #1e3a8a;
+            margin-bottom: 25px;
+        }
+
+        .input-section {
+            display: flex;
+            gap: 10px;
+        }
+
+        input {
+            flex: 1;
+            padding: 12px;
+
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+
+            font-size: 15px;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #2563eb;
+        }
+
+        .add-btn {
+            padding: 12px 18px;
+
+            border: none;
+            border-radius: 8px;
+
+            background-color: #2563eb;
+            color: white;
+
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        .add-btn:hover {
+            background-color: #1d4ed8;
+        }
+
+        #list {
+            margin-top: 20px;
+        }
+
+        .task {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            background-color: #f8fafc;
+
+            padding: 12px;
+            margin-bottom: 10px;
+
+            border-left: 5px solid #2563eb;
+            border-radius: 8px;
+
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+        }
+
+        .task h3 {
+            margin: 0;
+            color: #334155;
+            flex: 1;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 6px;
+        }
+
+        .complete-btn,
+        .delete-btn {
+            border: none;
+            padding: 8px 12px;
+            border-radius: 6px;
+            color: white;
+            cursor: pointer;
+        }
+
+        .complete-btn {
+            background-color: #16a34a;
+        }
+
+        .complete-btn:hover {
+            background-color: #15803d;
+        }
+
+        .delete-btn {
+            background-color: #dc2626;
+        }
+
+        .delete-btn:hover {
+            background-color: #b91c1c;
+        }
+
+        .completed {
+            text-decoration: line-through;
+            color: #16a34a !important;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Welcome</h1>
+
+        <div class="input-section">
+
+            <input
+                type="text"
+                placeholder="Enter Task"
+                id="input">
+
+            <button class="add-btn" onclick="Massage()">
+                Add Task
+            </button>
+
+        </div>
+
+        <h1>Task List</h1>
+
+        <div id="list"></div>
+
+    </div>
+
+
+    <script>
+
+        function Massage() {
+
+            let dask = document.getElementById("input").value.trim();
+
+            if (dask === "") {
+                alert("Enter Task");
+                return;
+            }
+
+            document.getElementById("list").innerHTML +=
+                `
+                <div class="task">
+
+                    <h3>${dask}</h3>
+
+                    <div class="buttons">
+
+                        <button
+                            class="complete-btn"
+                            onclick="completeTask(this)">
+                            Complete
+                        </button>
+
+                        <button
+                            class="delete-btn"
+                            onclick="this.parentNode.parentNode.remove()">
+                            Delete
+                        </button>
+
+                    </div>
+
+                </div>
+                `;
+
+            document.getElementById("input").value = "";
+        }
+
+
+        function completeTask(button) {
+
+            let task = button.parentNode.parentNode.querySelector("h3");
+
+            task.classList.add("completed");
+
+            button.innerText = "Completed";
+
+            button.disabled = true;
+
+            button.style.opacity = "0.6";
+            button.style.cursor = "not-allowed";
+        }
+
+    </script>
+
+</body>
+
+</html>
